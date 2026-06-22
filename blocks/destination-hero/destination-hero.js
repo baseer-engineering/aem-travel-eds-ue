@@ -1,19 +1,19 @@
 export default function decorate(block) {
-  // EDS passes the block element — rows are direct children
   const rows = [...block.children];
 
-  // First row = headline
-  const headline = rows[0];
-  headline.className = 'hero-headline';
+  // Row 0 = headline (from model field "headline")
+  if (rows[0]) {
+    rows[0].className = 'hero-headline';
+  }
 
-  // Second row = subheadline
+  // Row 1 = subheadline (from model field "subheadline")
   if (rows[1]) {
     rows[1].className = 'hero-subheadline';
   }
 
-  // Wrap everything in a semantic container
-  const container = document.createElement('div');
-  container.className = 'hero-content';
-  rows.forEach(row => container.appendChild(row));
-  block.appendChild(container);
+  // Add a CTA button
+  const cta = document.createElement('div');
+  cta.className = 'hero-cta';
+  cta.innerHTML = '<a href="/destinations" class="btn-primary">Explore Destinations</a>';
+  block.appendChild(cta);
 }
